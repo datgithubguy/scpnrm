@@ -7,9 +7,11 @@ uniform mat4	matrix;
 uniform vec3	displ;
 out float       t;
 uniform float		scale;
+out float vid;
 
 void main()
 {
+	vid = float(gl_VertexID);
     t = time;
 	u = uv;
     float aspect = 1920./1440.;

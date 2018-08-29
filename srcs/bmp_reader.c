@@ -57,5 +57,6 @@ char	*get_bmp_img(int *height, int *width)
 	read(fd_img, ret, fh.bf_size);
 	*height = fh.height;
 	*width = fh.width;
+	close(fd_img);
 	return (ret);
 }

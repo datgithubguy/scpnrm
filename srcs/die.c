@@ -19,6 +19,8 @@ void	die(t_env *e)
 	write(1, "die !\n", 6);
 	if (e)
 	{
+		if (e->texture_data)
+			free(e->texture_data);
 		if (e->obj.vertices)
 			free(e->obj.vertices);
 		if (e->obj.faces)

@@ -15,17 +15,17 @@
 void	create_texture(t_env *e)
 {
 	GLuint	texture_id;
-	char	*data;
 	int		width;
 	int		height;
 
-	data = get_bmp_img(&width, &height);
-	if (!data)
+	e->texture_data = NULL;
+	e->texture_data = get_bmp_img(&width, &height);
+	if (!e->texture_data)
 		die(e);
 	glGenTextures(1, &texture_id);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR,\
-				GL_UNSIGNED_BYTE, data);
+				GL_UNSIGNED_BYTE, e->texture_data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

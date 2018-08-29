@@ -37,7 +37,6 @@ int		compile_shader(t_env *e, GLenum shader_type, GLuint *shader, \
 
 	is_compiled = 0;
 	(void)e;
-	create_texture();
 	if (shader_type == GL_VERTEX_SHADER)
 		type = "vertex";
 	if (shader_type == GL_FRAGMENT_SHADER)
@@ -63,6 +62,7 @@ void	compile_shaders(t_env *e)
 {
 	char *file_str;
 
+	create_texture(e);
 	file_str = read_file("./shaders/vert.vs");
 	compile_shader(e, GL_VERTEX_SHADER, &e->vs, file_str);
 	free(file_str);

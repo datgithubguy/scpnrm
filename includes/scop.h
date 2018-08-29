@@ -68,6 +68,7 @@ typedef struct	s_env
 	GLuint		shader_programme;
 	t_vec3		displ;
 	t_obj		obj;
+	char		*texture_data;
 }				t_env;
 
 void			create_texture(t_env *e);

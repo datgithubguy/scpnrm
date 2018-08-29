@@ -1,0 +1,20 @@
+#version 410
+
+in vec3         uv;
+out vec3        u;
+uniform float   time;
+out float       t;
+//inout vec2    tx;
+
+void main()
+{
+    t = time;
+	mat2 m = mat2(cos(t*1.), sin(t*1.), -sin(t*1.), cos(t*1.) );
+	u = uv;
+    u.y -= .55;
+	u.xz *= m;
+//	u.yz *= m;
+//  u.y -= .55;
+	gl_Position = vec4(u, 1.0);
+}
+

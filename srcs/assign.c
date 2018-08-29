@@ -12,14 +12,14 @@
 
 #include "scop.h"
 
-int	assign_vertex(t_vec3 *v, t_vec3 *verts, t_obj *obj)
+int		assign_vertex(t_vec3 *v, t_vec3 *verts, t_obj *obj)
 {
 	*((t_vec3*)(verts)) = *(t_vec3 *)v;
 	obj->num_v++;
 	return (0);
 }
 
-int	assign_vertices(t_list *v_lst, t_obj *obj)
+int		assign_vertices(t_list *v_lst, t_obj *obj)
 {
 	t_list	*elem;
 	t_list	*tmp;
@@ -27,6 +27,7 @@ int	assign_vertices(t_list *v_lst, t_obj *obj)
 	t_vec3	*v;
 	int		j;
 
+	obj->median = (t_vec3){.0, .0, .0};
 	verts = &(obj)[0].vertices;
 	if (!(*verts = (t_vec3*)malloc(sizeof(t_vec3) * ft_lstsize(v_lst))))
 		die(NULL);
@@ -37,6 +38,7 @@ int	assign_vertices(t_list *v_lst, t_obj *obj)
 	{
 		v = elem->content;
 		assign_vertex(v, &(*verts)[j], obj);
+		find_median_point(v, obj);
 		tmp = elem;
 		elem = elem->next;
 		free(tmp->content);
@@ -46,7 +48,14 @@ int	assign_vertices(t_list *v_lst, t_obj *obj)
 	return (0);
 }
 
-int	assign_faces(t_list *faces_lst, t_obj *obj)
+void	find_median_point(t_vec3 *v, t_obj *obj)
+{
+	obj->median.x += v->x;
+	obj->median.y += v->y;
+	obj->median.z += v->z;
+}
+
+int		assign_faces(t_list *faces_lst, t_obj *obj)
 {
 	t_list	*elem;
 	t_list	*tmp;

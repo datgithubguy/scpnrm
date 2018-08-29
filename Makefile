@@ -30,7 +30,9 @@ FILES		=	main.c\
 				die.c\
 				draw.c\
 				time.c\
-				init_quats.c
+				init_quats.c\
+				bmp_reader.c\
+				create_texture.c
 
 PARSD		= parser/
 SRCD		= srcs/

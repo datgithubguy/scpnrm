@@ -16,6 +16,7 @@
 # define GLFW_INCLUDE_GLCOREARB
 # include "/Users/bal-khan/glfw/include/GLFW/glfw3.h"
 # include "quaternions.h"
+# include "bmp_reader.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -56,6 +57,7 @@ typedef struct	s_obj
 	int			tri_face_count;
 	int			num_v;
 	float		scale;
+	t_vec3		median;
 }				t_obj;
 
 typedef struct	s_env
@@ -68,6 +70,8 @@ typedef struct	s_env
 	t_obj		obj;
 }				t_env;
 
+void			create_texture(t_env *e);
+void			find_median_point(t_vec3 *v, t_obj *obj);
 float			get_current_time();
 void			die(t_env *e);
 void			parse_file(char *obj_path, t_obj *obj);

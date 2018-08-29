@@ -6,7 +6,9 @@ uniform float   time;
 uniform mat4	matrix;
 uniform vec3	displ;
 out float       t;
-uniform float		scale;
+uniform float	scale;
+uniform vec3	median;
+uniform float	idmax;
 out float vid;
 
 void main()
@@ -34,6 +36,7 @@ void main()
 				.0, .0, -2./(far-near), -(far+near)/(far-near),
 				.0, .0, .0, 1.0
 	);
+	u -= median/idmax;
 	gl_Position =  ((matrix * vec4(u, scale)
 	));
 	gl_Position *= world_proj;

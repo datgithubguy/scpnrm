@@ -37,6 +37,7 @@ int		compile_shader(t_env *e, GLenum shader_type, GLuint *shader, \
 
 	is_compiled = 0;
 	(void)e;
+	create_texture();
 	if (shader_type == GL_VERTEX_SHADER)
 		type = "vertex";
 	if (shader_type == GL_FRAGMENT_SHADER)

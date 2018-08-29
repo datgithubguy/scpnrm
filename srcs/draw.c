@@ -27,25 +27,28 @@ void	get_loc(GLint *loc, t_env *e)
 	loc[2] = glGetUniformLocation(e->shader_programme, "displ");
 	loc[3] = glGetUniformLocation(e->shader_programme, "scale");
 	loc[4] = glGetUniformLocation(e->shader_programme, "idmax");
+	loc[5] = glGetUniformLocation(e->shader_programme, "median");
 }
 
 void	render(t_env *e)
 {
 	t_mat			rot;
-	static GLint	loc[5];
+	static GLint	loc[6];
 	float			t;
 
 	if (!loc[0])
-	get_loc(loc, e);
+		get_loc(loc, e);
 	t = get_current_time();
 	rot = quat_to_rot_mat(get_result_quat(t));
 	glProgramUniformMatrix4fv(e->shader_programme, loc[1], 1, GL_FALSE,\
 							(float *)rot.mat);
 	glProgramUniform1f(e->shader_programme, loc[0], t);
 	glProgramUniform1f(e->shader_programme, loc[3], e->obj.scale);
-	glProgramUniform1f(e->shader_programme, loc[4], (float)e->obj.raw_face_count);
+	glProgramUniform1f(e->shader_programme, loc[4], e->obj.raw_face_count);
 	glProgramUniform3f(e->shader_programme, loc[2], e->displ.x, e->displ.y,\
 	e->displ.z);
+	glProgramUniform3f(e->shader_programme, loc[5], e->obj.median.x,\
+		e->obj.median.y, e->obj.median.z);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	draw_obj(e);
 	glfwPollEvents();

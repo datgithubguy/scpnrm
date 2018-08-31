@@ -4,6 +4,7 @@ out vec4    		frag_colour;
 in float			vid;
 uniform float   	time;
 uniform float		idmax;
+uniform float		toogle;
 uniform sampler2D	myTextureSampler;
 in vec3 u;
 
@@ -21,7 +22,7 @@ return	(vec3
 
 void main()
 {
-//  frag_colour = vec4( get_col(vid), 1.0);
-  frag_colour = vec4( texture(myTextureSampler, u.zy*2.).xyz, 1.0);
+	vec3	col = mix(texture(myTextureSampler, u.zy*2.).xyz, get_col(vid), toogle);
+	frag_colour = vec4( col, 1.0);
 }
 

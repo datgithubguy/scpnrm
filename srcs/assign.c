@@ -14,7 +14,7 @@
 
 int		assign_vertex(t_vec3 *v, t_vec3 *verts, t_obj *obj)
 {
-	*((t_vec3*)(verts)) = *(t_vec3 *)v;
+	*((t_vec3*)(verts)) = *v;
 	obj->num_v++;
 	return (0);
 }
@@ -63,7 +63,7 @@ int		assign_faces(t_list *faces_lst, t_obj *obj)
 	t_faces	*face;
 	int		j;
 
-	faces = &(obj)[0].faces;
+	faces = &obj->faces;
 	sum_indexes(faces_lst, obj);
 	if (!(*faces = (t_faces*)malloc(sizeof(t_faces) * obj->raw_face_count)))
 		die(NULL);

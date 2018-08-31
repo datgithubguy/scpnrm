@@ -1,7 +1,7 @@
 NAME		= scop
 
 LIBS		= -L/Users/bal-khan/glfw/src -lglfw3
-CFLG		= -Wextra -Wall -Werror
+CFLG		= -Wextra -Wall -Werror -fsanitize=address -g
 
 FILES		=	main.c\
 			 	parse_file.c\

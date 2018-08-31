@@ -17,7 +17,7 @@ void	draw_obj(t_env *e)
 	t_obj	obj;
 
 	obj = e->obj;
-	glDrawArraysInstanced(GL_TRIANGLES, 0, obj.num_v * sizeof(float), 1);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, obj.num_v * 3 * sizeof(float), 1);
 }
 
 void	get_loc(GLint *loc, t_env *e)
@@ -25,7 +25,7 @@ void	get_loc(GLint *loc, t_env *e)
 	loc[0] = glGetUniformLocation(e->shader_programme, "time");
 	loc[1] = glGetUniformLocation(e->shader_programme, "matrix");
 	loc[2] = glGetUniformLocation(e->shader_programme, "displ");
-	loc[3] = glGetUniformLocation(e->shader_programme, "scale");
+	loc[3] = glGetUniformLocation(e->shader_programme, "toogle");
 	loc[4] = glGetUniformLocation(e->shader_programme, "idmax");
 	loc[5] = glGetUniformLocation(e->shader_programme, "median");
 }
@@ -43,7 +43,7 @@ void	render(t_env *e)
 	glProgramUniformMatrix4fv(e->shader_programme, loc[1], 1, GL_FALSE,\
 							(float *)rot.mat);
 	glProgramUniform1f(e->shader_programme, loc[0], t);
-	glProgramUniform1f(e->shader_programme, loc[3], e->obj.scale);
+	glProgramUniform1f(e->shader_programme, loc[3], e->obj.toogle);
 	glProgramUniform1f(e->shader_programme, loc[4], e->obj.raw_face_count);
 	glProgramUniform3f(e->shader_programme, loc[2], e->displ.x, e->displ.y,\
 	e->displ.z);

@@ -56,7 +56,7 @@ typedef struct	s_obj
 	int			raw_face_count;
 	int			tri_face_count;
 	int			num_v;
-	float		scale;
+	float		toogle;
 	t_vec3		median;
 }				t_obj;
 
@@ -69,6 +69,7 @@ typedef struct	s_env
 	t_vec3		displ;
 	t_obj		obj;
 	char		*texture_data;
+	int			i[3];
 }				t_env;
 
 void			create_texture(t_env *e);
@@ -77,6 +78,8 @@ float			get_current_time();
 void			die(t_env *e);
 void			parse_file(char *obj_path, t_obj *obj);
 void			make_faces(float **f, t_faces *fi, t_vec3 *vertices, t_env *e);
+void			make_quad_faces(float **faces, t_faces *f, t_vec3 *v,\
+				t_env *e);
 float			get_current_time();
 
 void			render(t_env *e);

@@ -6,13 +6,13 @@ uniform float   time;
 uniform mat4	matrix;
 uniform vec3	displ;
 out float       t;
-uniform float	scale;
 uniform vec3	median;
 uniform float	idmax;
 out float vid;
 
 void main()
 {
+	float scale = 4.;
 	vid = float(gl_VertexID);
     t = time;
 	u = uv;

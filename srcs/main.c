@@ -36,9 +36,9 @@ static void	key_callback(GLFWwindow *window, int key, int scancode, int action,\
 	if (key == GLFW_KEY_O && action & (GLFW_REPEAT | GLFW_PRESS))
 		((t_env *)w)->displ.z -= .051;
 	if (key == GLFW_KEY_A && action & (GLFW_REPEAT | GLFW_PRESS))
-		((t_env *)w)->obj.scale *= 1.1;
+		((t_env *)w)->obj.toogle = 0.0;
 	if (key == GLFW_KEY_Z && action & (GLFW_REPEAT | GLFW_PRESS))
-		((t_env *)w)->obj.scale /= 1.1;
+		((t_env *)w)->obj.toogle = 1.0;
 }
 
 int			gen_vbo_vao(t_env *e, float *faces)
@@ -48,7 +48,7 @@ int			gen_vbo_vao(t_env *e, float *faces)
 	obj = e->obj;
 	glGenBuffers(1, &(obj.vbo));
 	glBindBuffer(GL_ARRAY_BUFFER, obj.vbo);
-	glBufferData(GL_ARRAY_BUFFER, obj.num_v * 3 * sizeof(float),\
+	glBufferData(GL_ARRAY_BUFFER, obj.tri_face_count * 9 * sizeof(float),\
 				&faces[0], GL_STATIC_DRAW);
 	glGenVertexArrays(1, &(obj.vao));
 	glBindVertexArray(obj.vao);
@@ -64,8 +64,7 @@ int			load_obj(t_env *e, char *path)
 	float	*faces;
 
 	parse_file(path, &(e->obj));
-	e->obj.num_v = e->obj.tri_face_count * 3;
-	if ((e->obj.faces_arr = (float *)malloc((e->obj.num_v)\
+	if ((e->obj.faces_arr = (float *)malloc(e->obj.tri_face_count * 3\
 					* 3 * sizeof(float))) == NULL)
 		die(NULL);
 	faces = e->obj.faces_arr;
@@ -82,11 +81,6 @@ void		init_scop(t_env *e, char *path)
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 }
-
-/*
-**	To open a window on osx with glfw one MUST require a core profile
-**	And set forward compatibiltity to true
-*/
 
 int			main(int ac, char **av)
 {
@@ -107,7 +101,7 @@ int			main(int ac, char **av)
 	glfwMakeContextCurrent(e.window);
 	glfwSetWindowUserPointer(e.window, &e);
 	glfwSetKeyCallback(e.window, key_callback);
-	e.obj.scale = 4.;
+	e.obj.toogle = 1.;
 	init_scop(&e, av[ac - 1]);
 	while (!glfwWindowShouldClose(e.window))
 		render(&e);
